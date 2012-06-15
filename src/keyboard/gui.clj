@@ -2,8 +2,8 @@
   (:import [java.awt Color Dimension]
            [javax.swing JComponent]))
 
-(def key-width 24)
-(def key-height 110)
+(def key-width 48)
+(def key-height 220)
 (def blacks [0 1 3 4 5])
 (def component-width (inc (* 8 key-width)))
 (def component-height (inc key-height))
