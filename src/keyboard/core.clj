@@ -21,17 +21,23 @@
    74 11
    75 12})
 
+(def key-code->note-off (ref {}))
+
 (defn key-pressed [e]
   (let [k (.getKeyCode e)]
     (println "keycode is" k)
     (if-let [mapped (key-code->base-note k)]
-      (let [note (+ root-note mapped)]
-        (println "Note on" note)
-        (mooger :note note)))))
+      (let [note (+ root-note mapped)
+            node (:id (mooger :note note))]
+        (dosync
+         (alter key-code->note-off assoc k node))))))
 
 (defn key-released [e]
-  (println "Note off")
-  (ctl mooger :gate 0))
+  (let [k (.getKeyCode e)]
+    (if-let [node (@key-code->note-off k)]
+      (ctl node :gate 0)
+      (dosync
+       (alter key-code->note-off dissoc k)))))
 
 (defn key-typed [e])
 
