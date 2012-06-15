@@ -4,6 +4,8 @@
   (:import [java.awt.event KeyListener]
            [javax.swing JComponent JFrame]))
 
+(def key-code->base-note {})
+
 (defn key-pressed [e]
   (let [k (.getKeyCode e)]
     (println "Note on" k)
@@ -15,7 +17,7 @@
 
 (defn key-typed [e])
 
-(defn snyth-frame []
+(defn synth-frame []
   (let [frame (JFrame.)
         comp (proxy [JComponent] [])]
     (.addKeyListener comp
