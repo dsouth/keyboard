@@ -1,5 +1,6 @@
 (ns keyboard.core
-  (:use [overtone.live]
+  (:use [keyboard.gui]
+        [overtone.live]
         [overtone.inst.synth])
   (:import [java.awt.event KeyListener]
            [javax.swing JComponent JFrame]))
@@ -43,7 +44,7 @@
 
 (defn synth-frame []
   (let [frame (JFrame.)
-        comp (proxy [JComponent] [])]
+        comp (get-keyboard-component)]
     (.addKeyListener comp
                      (proxy [KeyListener] []
                        (keyTyped [e] (key-typed e))
